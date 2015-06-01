@@ -938,7 +938,7 @@ class Api(object):
         _, data = self.perform_request('GET', url)
         return data
 
-    def post_device(self, name, ownerID, modelID, firmwareVersion, integrationType):
+    def post_device(self, name, ownerID, modelID, firmwareVersion, integrationType=None):
         """
         Register a new device on the relayr platform.
 
