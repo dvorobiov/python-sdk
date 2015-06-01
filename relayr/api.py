@@ -938,7 +938,7 @@ class Api(object):
         _, data = self.perform_request('GET', url)
         return data
 
-    def post_device(self, name, ownerID, modelID, firmwareVersion):
+    def post_device(self, name, ownerID, modelID, firmwareVersion, integrationType):
         """
         Register a new device on the relayr platform.
 
@@ -958,6 +958,10 @@ class Api(object):
           "model": modelID,
           "firmwareVersion": firmwareVersion
         }
+
+        if integrationType is not None:
+            data["integration_type"] = integrationType
+
         # https://api.relayr.io/devices
         url = '{0}/devices'.format(self.host)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
