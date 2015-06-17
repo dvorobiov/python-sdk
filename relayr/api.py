@@ -1517,7 +1517,7 @@ class Api(object):
 
     def change_group_position(self, groupID, position):
         data = {}
-        data.update(position = position)
+        data.update(newPosition = position)
         url = '{0}/experimental/groups/{1}'.format(self.host, groupID)
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
@@ -1534,7 +1534,7 @@ class Api(object):
 
     def change_device_position(self, groupID, deviceID, position):
         data = {}
-        data.update(position = position)
+        data.update(newPosition = position)
         url = '{0}/experimental/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
