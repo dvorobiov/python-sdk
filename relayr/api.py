@@ -1494,7 +1494,7 @@ class Api(object):
 
     def create_group(self, userID, name):
         data = {}
-        data.update(userId=userID)
+        data.update(owner=userID)
         data.update(name=name)
         url = '{0}/experimental/groups'.format(self.host)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
