@@ -1492,11 +1492,10 @@ class Api(object):
 
     # GROUPS
 
-    def create_group(self, userID, name=None):
+    def create_group(self, userID, name):
         data = {}
         data.update(userId=userID)
-        if name is not None:
-            data.update(name=name)
+        data.update(name=name)
         url = '{0}/experimental/groups'.format(self.host)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
