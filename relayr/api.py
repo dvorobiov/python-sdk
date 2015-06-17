@@ -47,6 +47,7 @@ def create_logger(sender):
 
     return logger
 
+
 def build_curl_call(method, url, data=None, headers=None):
     """
     Build and return a ``curl`` command for use on the command-line.
@@ -78,6 +79,7 @@ def build_curl_call(method, url, data=None, headers=None):
         jsdata = json.dumps(data)
         command += " --data {0}".format(json.dumps(jsdata))
     return command
+
 
 class Api(object):
     """
@@ -186,7 +188,6 @@ class Api(object):
             command = build_curl_call(method, url, data, headers)
             msg = "%s - %s" % (msg, command)
             raise RelayrApiException(msg)
-
 
     # ..............................................................................
     # System
@@ -624,10 +625,10 @@ class Api(object):
         :rtype: list of dicts, each representing a relayr application
         """
         data = {
-          "name": appName,
-          "publisher": publisherID,
-          "redirectUri": redirectURI,
-          "description": appDescription
+            "name": appName,
+            "publisher": publisherID,
+            "redirectUri": redirectURI,
+            "description": appDescription
         }
         # https://api.relayr.io/apps
         url = '{0}/apps'.format(self.host)
@@ -678,7 +679,6 @@ class Api(object):
         url = '{0}/apps/{1}/extended'.format(self.host, appID)
         _, data = self.perform_request('GET', url, headers=self.headers)
         return data
-
 
     def patch_app(self, appID, description=None, name=None, redirectUri=None):
         """
@@ -847,7 +847,6 @@ class Api(object):
         _, data = self.perform_request('GET', url, headers=self.headers)
         return data
 
-
     def patch_publisher(self, publisherID, name=None):
         """
         Update name attribute of a specific publisher.
@@ -953,10 +952,10 @@ class Api(object):
         :rtype: list of dicts, each representing a relayr device
         """
         data = {
-          "name": name,
-          "owner": ownerID,
-          "model": modelID,
-          "firmwareVersion": firmwareVersion
+            "name": name,
+            "owner": ownerID,
+            "model": modelID,
+            "firmwareVersion": firmwareVersion
         }
 
         if integrationType is not None:
@@ -966,7 +965,6 @@ class Api(object):
         url = '{0}/devices'.format(self.host)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
-
 
     def post_device_wb2(self, name, ownerID, modelID, firmwareVersion, mac, transmitterId):
         """
@@ -983,19 +981,18 @@ class Api(object):
         :rtype: list of dicts, each representing a relayr device
         """
         data = {
-          "name": name,
-          "owner": ownerID,
-          "model": modelID,
-          "firmwareVersion": firmwareVersion,
-          "integrationType": "wunderbar2",
-          "mac": mac,
-          "transmitterId": transmitterId
+            "name": name,
+            "owner": ownerID,
+            "model": modelID,
+            "firmwareVersion": firmwareVersion,
+            "integrationType": "wunderbar2",
+            "mac": mac,
+            "transmitterId": transmitterId
         }
         # https://api.relayr.io/devices
         url = '{0}/devices'.format(self.host)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
-
 
     def get_device(self, deviceID):
         """
@@ -1033,10 +1030,10 @@ class Api(object):
         credentials.
         """
         data = {
-          "name": name,
-          "description": description,
-          "model": modelID,
-          "public": public
+            "name": name,
+            "description": description,
+            "model": modelID,
+            "public": public
         }
         # filter data (compatible with Python 2.6)
         data1 = {}
@@ -1175,7 +1172,8 @@ class Api(object):
         This will be removed in version 0.3.0.
         """
         if config.LOG:
-            self.logger.info("Deprecated method 'post_devices_supscription' called. Please use 'post_devices_public_subscription' instead.")
+            self.logger.info(
+                "Deprecated method 'post_devices_supscription' called. Please use 'post_devices_public_subscription' instead.")
         self.post_devices_public_subscription(deviceID)
 
     def post_devices_public_subscription(self, deviceID):
@@ -1207,7 +1205,8 @@ class Api(object):
         This will be removed in version 0.3.0.
         """
         if config.LOG:
-            self.logger.info("Deprecated method 'post_devices_supscription' called. Please use 'post_apps_devices' instead.")
+            self.logger.info(
+                "Deprecated method 'post_devices_supscription' called. Please use 'post_apps_devices' instead.")
         return self.post_apps_devices(appID, deviceID)
 
         """
@@ -1489,4 +1488,54 @@ class Api(object):
         # https://api.relayr.io/transmitters/<transmitterID>/devices/<deviceID>
         url = '{0}/transmitters/{1}/devices/{2}'.format(self.host, transmitterID, deviceID)
         _, data = self.perform_request('DELETE', url, data=data, headers=self.headers)
+        return data
+
+    # GROUPS
+
+    def create_group(self, userID, name=None):
+        data = {}
+        data.update(userId=userID)
+        if name is not None:
+            data.update(name=name)
+        url = '{0}/groups'.format(self.host)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
+        return data
+
+    def get_groups(self):
+        url = '{0}/groups'.format(self.host)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def get_group(self, groupID):
+        url = '{0}/groups/{1}'.format(self.host, groupID)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def delete_group(self, groupID):
+        url = '{0}/groups/{1}'.format(self.host, groupID)
+        _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
+        return data
+
+    def change_group_position(self, groupID, position):
+        data = {}
+        data.update(position = position)
+        url = '{0}/groups/{1}'.format(self.host, groupID)
+        _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
+        return data
+
+    def add_device_to_group(self, groupID, deviceID):
+        url = '{0}/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
+        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        return data
+
+    def remove_device_from_group(self, groupID, deviceID):
+        url = '{0}/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
+        _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
+        return data
+
+    def change_device_position(self, groupID, deviceID, position):
+        data = {}
+        data.update(position = position)
+        url = '{0}/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
+        _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
