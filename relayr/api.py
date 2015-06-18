@@ -1515,6 +1515,11 @@ class Api(object):
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
 
+    def delete_groups(self):
+        url = '{0}/experimental/groups'.format(self.host)
+        _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
+        return data
+
     def change_group_position(self, groupID, position):
         data = {}
         data.update(newPosition = position)
