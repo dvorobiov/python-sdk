@@ -1520,9 +1520,12 @@ class Api(object):
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
 
-    def change_group_position(self, groupID, position):
+    def patch_group(self, groupID, name = None, position = None):
         data = {}
-        data.update(newPosition = position)
+        if name is not None:
+            data.update(name = name)
+        if position is not None:
+            data.update(position = position)
         url = '{0}/experimental/groups/{1}'.format(self.host, groupID)
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
@@ -1539,7 +1542,7 @@ class Api(object):
 
     def change_device_position(self, groupID, deviceID, position):
         data = {}
-        data.update(newPosition = position)
+        data.update(position = position)
         url = '{0}/experimental/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
