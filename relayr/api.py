@@ -966,7 +966,7 @@ class Api(object):
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
-    def post_device_wb2(self, name, ownerID, modelID, firmwareVersion, mac, transmitterId):
+    def post_device_wb2(self, name, ownerID, modelID, firmwareVersion, externalId, transmitterId):
         """
         Register a new device on the relayr platform.
 
@@ -986,7 +986,7 @@ class Api(object):
             "model": modelID,
             "firmwareVersion": firmwareVersion,
             "integrationType": "wunderbar2",
-            "mac": mac,
+            "externalId": externalId,
             "transmitterId": transmitterId
         }
         # https://api.relayr.io/devices
