@@ -1530,9 +1530,12 @@ class Api(object):
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
 
-    def add_device_to_group(self, groupID, deviceID):
-        url = '{0}/experimental/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
-        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+    def add_device_to_group(self, groupID, deviceIDs):
+        data = {}
+        if deviceIDs is not None:
+            data.update(deviceIds = deviceIDs)
+        url = '{0}/experimental/groups/{1}'.format(self.host, groupID)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
     def remove_device_from_group(self, groupID, deviceID):
