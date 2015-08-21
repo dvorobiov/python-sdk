@@ -1496,27 +1496,27 @@ class Api(object):
         data = {}
         data.update(owner=userID)
         data.update(name=name)
-        url = '{0}/experimental/groups'.format(self.host)
+        url = '{0}/groups'.format(self.host)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
     def get_groups(self):
-        url = '{0}/experimental/groups'.format(self.host)
+        url = '{0}/groups'.format(self.host)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
     def get_group(self, groupID):
-        url = '{0}/experimental/groups/{1}'.format(self.host, groupID)
+        url = '{0}/groups/{1}'.format(self.host, groupID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
     def delete_group(self, groupID):
-        url = '{0}/experimental/groups/{1}'.format(self.host, groupID)
+        url = '{0}/groups/{1}'.format(self.host, groupID)
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
 
     def delete_groups(self):
-        url = '{0}/experimental/groups'.format(self.host)
+        url = '{0}/groups'.format(self.host)
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
 
@@ -1526,7 +1526,7 @@ class Api(object):
             data.update(name = name)
         if position is not None:
             data.update(position = position)
-        url = '{0}/experimental/groups/{1}'.format(self.host, groupID)
+        url = '{0}/groups/{1}'.format(self.host, groupID)
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
 
@@ -1534,18 +1534,18 @@ class Api(object):
         data = {}
         if deviceIDs is not None:
             data.update(deviceIds = deviceIDs)
-        url = '{0}/experimental/groups/{1}'.format(self.host, groupID)
+        url = '{0}/groups/{1}'.format(self.host, groupID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
     def remove_device_from_group(self, groupID, deviceID):
-        url = '{0}/experimental/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
+        url = '{0}/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
 
     def change_device_position(self, groupID, deviceID, position):
         data = {}
         data.update(position = position)
-        url = '{0}/experimental/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
+        url = '{0}/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
