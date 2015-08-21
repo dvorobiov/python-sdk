@@ -1515,8 +1515,8 @@ class Api(object):
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
 
-    def delete_groups(self):
-        url = '{0}/groups'.format(self.host)
+    def delete_groups(self, userID):
+        url = '{0}/users/{1}/groups'.format(self.host, userID)
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
 
