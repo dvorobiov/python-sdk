@@ -1500,8 +1500,8 @@ class Api(object):
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
-    def get_groups(self):
-        url = '{0}/groups'.format(self.host)
+    def get_groups(self, userID):
+        url = '{0}/users/{1}/groups'.format(self.host, userID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
