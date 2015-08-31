@@ -907,7 +907,7 @@ class Api(object):
         _, data = self.perform_request('GET', url, headers=self.headers)
         return data
 
-    def post_device_configuration(self, deviceID, frequency):
+    def post_device_configuration(self, deviceID, config):
         """
         Modify the configuration of a specific device facillitated by a schema.
 
@@ -916,10 +916,9 @@ class Api(object):
         :param frequency: the number of milliseconds between two sensor transmissions
         :type frequency: integer
         """
-        data = {'frequency': frequency}
         # https://api.relayr.io/devices/<deviceID>/configuration
         url = '{0}/devices/{1}/configuration'.format(self.host, deviceID)
-        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
+        _, data = self.perform_request('POST', url, data=config, headers=self.headers)
         return data
 
     def get_public_devices(self, meaning=''):
