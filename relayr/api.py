@@ -1552,6 +1552,6 @@ class Api(object):
     def get_credentials(self, deviceID):
         data = {}
         data.update(transport = 'MQTT')
-        url = '{0}/devices/{1}/transmitters'.format(self.host, deviceID)
+        url = '{0}/devices/{1}/transmitter'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
