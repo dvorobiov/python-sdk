@@ -1548,3 +1548,10 @@ class Api(object):
         url = '{0}/groups/{1}/devices/{2}'.format(self.host, groupID, deviceID)
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
+
+    def get_credentials(self, deviceID):
+        data = {}
+        data.update(transport = 'MQTT')
+        url = '{0}/devices/{1}/transmitters'.format(self.host, deviceID)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
+        return data
