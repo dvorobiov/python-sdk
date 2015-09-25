@@ -958,7 +958,7 @@ class Api(object):
         }
 
         if integrationType is not None:
-            data.update(integration_type=integrationType)
+            data.update(integrationType=integrationType)
 
         # https://api.relayr.io/devices
         url = '{0}/devices'.format(self.host)
