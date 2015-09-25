@@ -1589,3 +1589,8 @@ class Api(object):
         url = '{0}/vertices/{1}/devices'.format(self.host, name)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
+
+    def is_device_public(self, deviceID):
+        url = '{0}/devices/{1}/public'.format(self.host, deviceID)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
