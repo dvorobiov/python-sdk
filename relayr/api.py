@@ -1584,3 +1584,8 @@ class Api(object):
         url = '{0}/vertices/{1}/devices/{2}'.format(self.host, name, deviceID)
         _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
         return data
+
+    def get_devices_per_vertex(self, name):
+        url = '{0}/vertices/{1}/devices'.format(self.host, name)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
