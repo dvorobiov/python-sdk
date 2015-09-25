@@ -1555,3 +1555,32 @@ class Api(object):
         url = '{0}/devices/{1}/transmitter'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
+
+    def create_vertex(self, name, description=None):
+        data = {}
+        data.update(name = name)
+        if description is not None:
+            data.update(description = description)
+        url = '{0}/vertices/'.format(self.host)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
+        return data
+
+    def get_vertex(self, name):
+        url = '{0}/vertices/{1}'.format(self.host, name)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def delete_vertex(self, name):
+        url = '{0}/vertices/{1}'.format(self.host, name)
+        _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
+        return data
+
+    def add_device_to_vertex(self, deviceID, name):
+        url = '{0}/vertices/{1}/devices/{2}'.format(self.host, name, deviceID)
+        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        return data
+
+    def remove_device_from_vertex(self, deviceID, name):
+        url = '{0}/vertices/{1}/devices/{2}'.format(self.host, name, deviceID)
+        _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
+        return data
