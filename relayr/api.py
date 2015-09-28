@@ -1593,6 +1593,11 @@ class Api(object):
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
+    def delete_all_vertices(self):
+        url = '{0}/vertices'.format(self.host)
+        _, data = self.perform_request('DELETE', url, data=None, headers=self.headers)
+        return data
+
     def is_device_public(self, deviceID):
         url = '{0}/devices/{1}/public'.format(self.host, deviceID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
