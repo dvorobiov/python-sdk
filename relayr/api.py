@@ -97,7 +97,7 @@ class Api(object):
         assert a.get_public_device_model_meanings() > 0
     """
 
-    def __init__(self, token=None):
+    def __init__(self, token=None, is_error=False):
         """
         Object construction.
 
@@ -172,22 +172,25 @@ class Api(object):
             self.logger.info("API response headers: " + json.dumps(hd))
             self.logger.info("API response content: " + resp.content)
 
-        status = resp.status_code
-        if 200 <= status < 300:
-            try:
-                js = resp.json()
-            except:
-                js = None
-                # raise ValueError('Invalid JSON code(?): %r' % resp.content)
-                if config.DEBUG:
-                    warnings.warn("Replaced suspicious API response (invalid JSON?) %r with 'null'!" % resp.content)
-            return status, js
+        if not self.is_error:
+            status = resp.status_code
+            if 200 <= status < 300:
+                try:
+                    js = resp.json()
+                except:
+                    js = None
+                    # raise ValueError('Invalid JSON code(?): %r' % resp.content)
+                    if config.DEBUG:
+                        warnings.warn("Replaced suspicious API response (invalid JSON?) %r with 'null'!" % resp.content)
+                return status, js
+            else:
+                args = (resp.json()['message'], method.upper(), url)
+                msg = "{0} - {1} {2}".format(*args)
+                command = build_curl_call(method, url, data, headers)
+                msg = "%s - %s" % (msg, command)
+                raise RelayrApiException(msg)
         else:
-            args = (resp.json()['message'], method.upper(), url)
-            msg = "{0} - {1} {2}".format(*args)
-            command = build_curl_call(method, url, data, headers)
-            msg = "%s - %s" % (msg, command)
-            raise RelayrApiException(msg)
+            return resp
 
     # ..............................................................................
     # System
