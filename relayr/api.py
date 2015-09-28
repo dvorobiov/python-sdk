@@ -106,6 +106,7 @@ class Api(object):
         :type token: string
         """
         self.token = token
+        self.is_error = is_error
         self.host = config.relayrAPI
         self.useragent = config.userAgent
         self.headers = {
