@@ -215,6 +215,7 @@ class Api(object):
         _, data = self.perform_request('GET', url, headers=self.headers)
         return data
 
+    def get_server_status(self):
         """
         Get server status.
 
