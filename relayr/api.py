@@ -191,7 +191,8 @@ class Api(object):
                 msg = "%s - %s" % (msg, command)
                 raise RelayrApiException(msg)
         else:
-            return resp
+            return (1, resp)
+
 
     # ..............................................................................
     # System
@@ -214,7 +215,6 @@ class Api(object):
         _, data = self.perform_request('GET', url, headers=self.headers)
         return data
 
-    def get_server_status(self):
         """
         Get server status.
 
