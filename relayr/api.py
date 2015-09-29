@@ -813,6 +813,11 @@ class Api(object):
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
+    def get_publisher(self, publisherID):
+        url = '{0}/publishers/{1}'.format(self.host, publisherID)
+        _, data = self.perform_request('GET', url, headers=self.headers)
+        return data
+
     def delete_publisher(self, publisherID):
         """
         Delete a specific publisher from the relayr platform.
