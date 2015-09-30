@@ -14,21 +14,24 @@ from relayr.dataconnection import Connection
 class Vertex(object):
     "A Relayr vertex."
 
-    def __init__(self, id=None, client=None):
-        self.id = id
+    def __init__(self, name=None, client=None):
+        self.name = name
         self.client = client
 
     def __repr__(self):
-        return "%s(id=%r)" % (self.__class__.__name__, self.id)
+        return "%s(id=%r)" % (self.__class__.__name__, self.name)
 
     def get_vertices(self):
         "Return a generator of the vertices of the user."
 
         for vertex_json in self.client.api.get_all_vertices():
-            v = Vertex(vertex_json['id'], client=self.client)
+            v = Vertex(vertex_json['name'], client=self.client)
             for k in vertex_json:
                 setattr(v, k, vertex_json[k])
             yield v
+
+    def delete(self):
+        res = self.api.delete_vertex(self.name)
 
 class User(object):
     "A Relayr user."
