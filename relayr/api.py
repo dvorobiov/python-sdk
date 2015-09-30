@@ -1584,7 +1584,7 @@ class Api(object):
         return data
 
     def get_all_vertices(self):
-        url = '{0}/vertices/'.format(self.host)
+        url = '{0}/vertices'.format(self.host)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
