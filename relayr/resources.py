@@ -31,7 +31,7 @@ class Vertex(object):
             yield v
 
     def delete(self):
-        res = self.api.delete_vertex(self.name)
+        res = self.client.api.delete_vertex(self.name)
 
 class User(object):
     "A Relayr user."
@@ -193,7 +193,7 @@ class Publisher(object):
         :param name: the user email to be set
         :type name: string
         """
-        res = self.api.patch_publisher(self.id, name=name)
+        res = self.client.api.patch_publisher(self.id, name=name)
         for k in res:
             setattr(self, k, res[k])
         return self
@@ -213,7 +213,7 @@ class Publisher(object):
         """
         Deletes the publisher from the relayr platform.
         """
-        res = self.api.delete_publisher(self.id)
+        res = self.client.api.delete_publisher(self.id)
 
 
 class App(object):
@@ -276,7 +276,7 @@ class App(object):
         """
         Deletes the app from the relayr platform.
         """
-        res = self.api.delete_publisher(self.id)
+        res = self.client.api.delete_publisher(self.id)
 
     def register(self, name, publisher):
         """
