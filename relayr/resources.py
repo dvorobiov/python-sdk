@@ -11,6 +11,24 @@ devices, device models and transmitters.
 from relayr import exceptions
 from relayr.dataconnection import Connection
 
+class Vertex(object):
+    "A Relayr vertex."
+
+    def __init__(self, id=None, client=None):
+        self.id = id
+        self.client = client
+
+    def __repr__(self):
+        return "%s(id=%r)" % (self.__class__.__name__, self.id)
+
+    def get_vertices(self):
+        "Return a generator of the vertices of the user."
+
+        for vertex_json in self.client.api.get_all_vertices():
+            v = Vertex(vertex_json['id'], client=self.client)
+            for k in vertex_json:
+                setattr(v, k, vertex_json[k])
+            yield v
 
 class User(object):
     "A Relayr user."
