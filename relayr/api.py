@@ -1143,8 +1143,8 @@ class Api(object):
             data['deviceId'] = deviceID
         if transport is not None:
             data['transport'] = transport
-        _, res = self.perform_request('DELETE', url,
-                                      data=data, headers=self.headers)
+        _, res = self.perform_request('DELETE', url, data=data, headers=self.headers)
+        return res
 
     def get_device_channels(self, deviceID):
         """
