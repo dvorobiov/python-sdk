@@ -1616,4 +1616,22 @@ class Api(object):
     def is_device_public(self, deviceID):
         url = '{0}/devices/{1}/public'.format(self.host, deviceID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+
+    def get_state(self, deviceID, path = None):
+        if path is not None:
+            url = '{0}/experimental/state/{1}/{2}'.format(self.host, deviceID, path)
+        else :
+            url = '{0}/experimental/state/{1}'.format(self.host, deviceID)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def set_state(self, deviceID, path=None, value=None):
+        data = {}
+        if value is not None:
+            data.update(value = value)
+        if path is not None:
+            url = '{0}/experimental/state/{1}/{2}'.format(self.host, deviceID, path)
+        else :
+            url = '{0}/experimental/state/{1}'.format(self.host, deviceID)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
