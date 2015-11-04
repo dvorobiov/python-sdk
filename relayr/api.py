@@ -1631,8 +1631,8 @@ class Api(object):
         if value is not None:
             data.update(value = value)
         if path is not None:
-            url = '{0}/experimental/state/{1}/{2}/'.format(self.host, deviceID, path)
+            url = '{0}/experimental/state/{1}/{2}'.format(self.host, deviceID, path)
         else :
-            url = '{0}/experimental/state/{1}/'.format(self.host, deviceID)
+            url = '{0}/experimental/state/{1}'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
