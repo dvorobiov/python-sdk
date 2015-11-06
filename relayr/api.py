@@ -1629,7 +1629,7 @@ class Api(object):
     def set_state(self, deviceID, path=None, value=None):
         data = {}
         if value is not None:
-            data.update(value = value)
+            data = value
         if path is not None:
             url = '{0}/experimental/state/{1}/{2}'.format(self.host, deviceID, path)
         else :
