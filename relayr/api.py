@@ -175,9 +175,11 @@ class Api(object):
 
         if not self.is_error:
             status = resp.status_code
+            print("Error status code: " + status + "\n")
             if 200 <= status < 300:
                 try:
                     js = resp.json()
+                    print("Error js: " + js + "\n")
                 except:
                     js = None
                     # raise ValueError('Invalid JSON code(?): %r' % resp.content)
@@ -187,8 +189,10 @@ class Api(object):
             else:
                 args = (resp.json()['message'], method.upper(), url)
                 msg = "{0} - {1} {2}".format(*args)
+                print("Error msg1: " + msg + "\n")
                 command = build_curl_call(method, url, data, headers)
                 msg = "%s - %s" % (msg, command)
+                print("Error msg2: " + msg + "\n")
                 raise RelayrApiException(msg)
         else:
             return (1, resp)
