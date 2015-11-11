@@ -1636,3 +1636,11 @@ class Api(object):
             url = '{0}/experimental/state/{1}'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
+
+    def get_config(self, deviceID, name=None):
+        if(name is not None):
+            url = '{0}/devices/{1}/configuration?name={2}'.format(self.host, deviceID, name)
+        else:
+            url = '{0}/devices/{1}/configuration'.format(self.host, deviceID, name)
+        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        return data
