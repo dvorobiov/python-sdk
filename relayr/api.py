@@ -178,7 +178,6 @@ class Api(object):
             if 200 <= status < 300:
                 try:
                     js = resp.json()
-                    print("Error js: " + str(js) + "\n")
                 except:
                     js = None
                     # raise ValueError('Invalid JSON code(?): %r' % resp.content)
