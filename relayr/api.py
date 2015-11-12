@@ -175,7 +175,6 @@ class Api(object):
 
         if not self.is_error:
             status = resp.status_code
-            print("Error status code: " + str(status) + "\n")
             if 200 <= status < 300:
                 try:
                     js = resp.json()
@@ -189,10 +188,8 @@ class Api(object):
             else:
                 args = (resp.json()['message'], method.upper(), url)
                 msg = "{0} - {1} {2}".format(*args)
-                print("Error msg1: " + str(msg) + "\n")
                 command = build_curl_call(method, url, data, headers)
                 msg = "%s - %s" % (msg, command)
-                print("Error msg2: " + str(msg) + "\n")
                 raise RelayrApiException(msg)
         else:
             return (1, resp)
@@ -1646,5 +1643,5 @@ class Api(object):
             url = '{0}/devices/{1}/configuration?name={2}'.format(self.host, deviceID, name)
         else:
             url = '{0}/devices/{1}/configuration'.format(self.host, deviceID, name)
-        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
