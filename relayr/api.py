@@ -1640,7 +1640,7 @@ class Api(object):
             data.update(path=path)
         data.update(name=name)
         data.update(value=value)
-        url = '{0}/experimental/devices/{1}/commands'.format(self.host, deviceID)
+        url = '{0}/devices/{1}/commands'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
@@ -1658,7 +1658,7 @@ class Api(object):
             data.update(path=path)
         data.update(name=name)
         data.update(value=value)
-        url = '{0}/experimental/devices/{1}/configurations'.format(self.host, deviceID)
+        url = '{0}/devices/{1}/configurations'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
