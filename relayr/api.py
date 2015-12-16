@@ -1641,7 +1641,7 @@ class Api(object):
         data.update(name=name)
         data.update(value=value)
         url = '{0}/experimental/devices/{1}/commands'.format(self.host, deviceID)
-        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
     def new_get_configs(self, deviceID, key=None):
@@ -1659,7 +1659,7 @@ class Api(object):
         data.update(name=name)
         data.update(value=value)
         url = '{0}/experimental/devices/{1}/configurations'.format(self.host, deviceID)
-        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
     def get_readings(self, deviceID, key=None):
@@ -1684,7 +1684,7 @@ class Api(object):
             url = '{0}/experimental/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
         else :
             url = '{0}/experimental/devices/{1}/metadata'.format(self.host, deviceID)
-        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
 
