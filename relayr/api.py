@@ -1618,29 +1618,77 @@ class Api(object):
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
-    def get_state(self, deviceID, path = None):
-        if path is not None:
-            url = '{0}/experimental/state/{1}/{2}'.format(self.host, deviceID, path)
-        else :
-            url = '{0}/experimental/state/{1}'.format(self.host, deviceID)
-        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
-        return data
-
-    def set_state(self, deviceID, path=None, value=None):
-        data = {}
-        if value is not None:
-            data = value
-        if path is not None:
-            url = '{0}/experimental/state/{1}/{2}'.format(self.host, deviceID, path)
-        else :
-            url = '{0}/experimental/state/{1}'.format(self.host, deviceID)
-        _, data = self.perform_request('POST', url, data=data, headers=self.headers)
-        return data
-
     def get_config(self, deviceID, name=None):
         if(name is not None):
             url = '{0}/devices/{1}/configuration?name={2}'.format(self.host, deviceID, name)
         else:
             url = '{0}/devices/{1}/configuration'.format(self.host, deviceID, name)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def new_get_command(self, deviceID, key=None):
+        if(key is not None):
+            url = '{0}/experimental/devices/{1}/commands?key={2}'.format(self.host, deviceID, key)
+        else:
+            url = '{0}/experimental/devices/{1}/commands'.format(self.host, deviceID)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def new_post_command(self, deviceID, name, value, path=None):
+        data = {}
+        if path is not None:
+            data.update(path=path)
+        data.update(name=name)
+        data.update(value=value)
+        url = '{0}/experimental/devices/{1}/commands'.format(self.host, deviceID)
+        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        return data
+
+    def new_get_configs(self, deviceID, key=None):
+        if(key is not None):
+            url = '{0}/experimental/devices/{1}/configurations?key={2}'.format(self.host, deviceID, key)
+        else:
+            url = '{0}/experimental/devices/{1}/configurations'.format(self.host, deviceID)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def new_post_configs(self, deviceID, name, value, path=None):
+        data = {}
+        if path is not None:
+            data.update(path=path)
+        data.update(name=name)
+        data.update(value=value)
+        url = '{0}/experimental/devices/{1}/configurations'.format(self.host, deviceID)
+        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        return data
+
+    def get_readings(self, deviceID, key=None):
+        if key is not None:
+            url = '{0}/experimental/devices/{1}/readings?key={2}'.format(self.host, deviceID, key)
+        else :
+            url = '{0}/experimental/devices/{1}/readings'.format(self.host, deviceID)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def get_metadata(self, deviceID, key=None):
+        if key is not None:
+            url = '{0}/experimental/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
+        else :
+            url = '{0}/experimental/devices/{1}/metadata'.format(self.host, deviceID)
+        _, data = self.perform_request('GET', url, data=None, headers=self.headers)
+        return data
+
+    def post_metadata(self, deviceID, json, key=None):
+        data = json
+        if key is not None:
+            url = '{0}/experimental/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
+        else :
+            url = '{0}/experimental/devices/{1}/metadata'.format(self.host, deviceID)
+        _, data = self.perform_request('POST', url, data=None, headers=self.headers)
+        return data
+
+
+    def get_state(self, deviceID):
+        url = '{0}/experimental/devices/{1}/state'.format(self.host, deviceID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
