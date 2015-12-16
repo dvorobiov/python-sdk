@@ -1634,10 +1634,9 @@ class Api(object):
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
-    def new_post_command(self, deviceID, name, value, path=None):
+    def new_post_command(self, deviceID, name, value, path):
         data = {}
-        if path is not None:
-            data.update(path=path)
+        data.update(path=path)
         data.update(name=name)
         data.update(value=value)
         url = '{0}/devices/{1}/commands'.format(self.host, deviceID)
@@ -1652,10 +1651,9 @@ class Api(object):
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
-    def new_post_configs(self, deviceID, name, value, path=None):
+    def new_post_configs(self, deviceID, name, value, path):
         data = {}
-        if path is not None:
-            data.update(path=path)
+        data.update(path=path)
         data.update(name=name)
         data.update(value=value)
         url = '{0}/devices/{1}/configurations'.format(self.host, deviceID)
