@@ -1626,11 +1626,14 @@ class Api(object):
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
-    def new_get_command(self, deviceID, key=None):
-        if(key is not None):
-            url = '{0}/experimental/devices/{1}/commands?key={2}'.format(self.host, deviceID, key)
-        else:
-            url = '{0}/experimental/devices/{1}/commands'.format(self.host, deviceID)
+    def new_get_command(self, deviceID, path=None, name=None):
+        query = "?"
+        if path is not None:
+            query = query + "path=" + path + "&"
+        if name is not None:
+            query = query + "name=" + name
+
+        url = '{0}/experimental/devices/{1}/commands?{2}'.format(self.host, deviceID, query)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
@@ -1640,15 +1643,19 @@ class Api(object):
             data.update(path=path)
         data.update(name=name)
         data.update(value=value)
+
         url = '{0}/devices/{1}/commands'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
-    def new_get_configs(self, deviceID, key=None):
-        if(key is not None):
-            url = '{0}/experimental/devices/{1}/configurations?key={2}'.format(self.host, deviceID, key)
-        else:
-            url = '{0}/experimental/devices/{1}/configurations'.format(self.host, deviceID)
+    def new_get_configs(self, deviceID, path=None, name=None):
+        query = "?"
+        if path is not None:
+            query = query + "path=" + path + "&"
+        if name is not None:
+            query = query + "name=" + name
+
+        url = '{0}/experimental/devices/{1}/configurations?{2}'.format(self.host, deviceID, query)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
@@ -1662,11 +1669,14 @@ class Api(object):
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
-    def get_readings(self, deviceID, key=None):
-        if key is not None:
-            url = '{0}/experimental/devices/{1}/readings?key={2}'.format(self.host, deviceID, key)
-        else :
-            url = '{0}/experimental/devices/{1}/readings'.format(self.host, deviceID)
+    def get_readings(self, deviceID, path=None, meaning=None):
+        query = "?"
+        if path is not None:
+            query = query + "path=" + path + "&"
+        if meaning is not None:
+            query = query + "meaning=" + meaning
+
+        url = '{0}/experimental/devices/{1}/readings?{2}'.format(self.host, deviceID, query)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
