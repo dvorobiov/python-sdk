@@ -1633,7 +1633,7 @@ class Api(object):
         if name is not None:
             query = query + "name=" + name
 
-        url = '{0}/experimental/devices/{1}/commands?{2}'.format(self.host, deviceID, query)
+        url = '{0}/devices/{1}/commands?{2}'.format(self.host, deviceID, query)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
@@ -1655,7 +1655,7 @@ class Api(object):
         if name is not None:
             query = query + "name=" + name
 
-        url = '{0}/experimental/devices/{1}/configurations?{2}'.format(self.host, deviceID, query)
+        url = '{0}/devices/{1}/configurations?{2}'.format(self.host, deviceID, query)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
@@ -1676,29 +1676,29 @@ class Api(object):
         if meaning is not None:
             query = query + "meaning=" + meaning
 
-        url = '{0}/experimental/devices/{1}/readings?{2}'.format(self.host, deviceID, query)
+        url = '{0}/devices/{1}/readings?{2}'.format(self.host, deviceID, query)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
     def get_metadata(self, deviceID, key=None):
         if key is not None:
-            url = '{0}/experimental/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
+            url = '{0}/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
         else :
-            url = '{0}/experimental/devices/{1}/metadata'.format(self.host, deviceID)
+            url = '{0}/devices/{1}/metadata'.format(self.host, deviceID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
 
     def post_metadata(self, deviceID, json, key=None):
         data = json
         if key is not None:
-            url = '{0}/experimental/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
+            url = '{0}/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
         else :
-            url = '{0}/experimental/devices/{1}/metadata'.format(self.host, deviceID)
+            url = '{0}/devices/{1}/metadata'.format(self.host, deviceID)
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
 
     def get_state(self, deviceID):
-        url = '{0}/experimental/devices/{1}/state'.format(self.host, deviceID)
+        url = '{0}/devices/{1}/state'.format(self.host, deviceID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
         return data
