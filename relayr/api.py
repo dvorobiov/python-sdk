@@ -1697,6 +1697,11 @@ class Api(object):
         _, data = self.perform_request('POST', url, data=data, headers=self.headers)
         return data
 
+    def delete_metadata(self, deviceID, key):
+        url = '{0}/devices/{1}/metadata?key={2}'.format(self.host, deviceID, key)
+        _, data = self.perform_request('DELETE', url, headers=self.headers)
+        return data
+
 
     def get_state(self, deviceID):
         url = '{0}/devices/{1}/state'.format(self.host, deviceID)
