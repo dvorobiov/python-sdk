@@ -1058,6 +1058,24 @@ class Api(object):
         _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
         return data
 
+    def patch_firmware(self, deviceID, firmwareVersion):
+        """
+        Patch the firmware version of a device
+
+        :param deviceID: the device UUID
+        :param firmwareVersion: the firmware version
+        :return: a dict with field containing the firmware version
+
+        Raises ``exceptions.RelayrApiException`` for invalid UUIDs or missing
+        credentials.
+        """
+        data = { "firmwareVersion": firmwareVersion }
+
+        url = '{0}/devices/{1}/firmware'.format(self.host, deviceID)
+        _, data = self.perform_request('PATCH', url, data=data, headers=self.headers)
+        return data
+
+
     def delete_device(self, deviceID):
         """
         Delete a specific device from the relayr platform.
