@@ -16,6 +16,7 @@ from .version import __version__
 
 # defaults
 relayrAPI = 'https://api.relayr.io'
+relayr_history ='https://data.relayr.io'
 clientName = 'io.relayr.sdk.python'
 dataConnectionHubName = 'PubNub'
 userAgentString = '{client_name}/{client_version} '
@@ -28,6 +29,7 @@ MQTT_CERT_URL = 'http://mqtt.relayr.io/relayr.crt'
 
 # overwrite with environment variables if given
 relayrAPI = os.environ.get('RELAYR_API', relayrAPI)
+relayr_history = os.environ.get('RELAYR_HISTORY', relayr_history)
 clientName = os.environ.get('RELAYR_PYTHON_CLIENT_NAME', clientName)
 dataConnectionHubName = os.environ.get('RELAYR_DATAHUB', dataConnectionHubName)
 userAgentString = os.environ.get('RELAYR_DATAHUB', userAgentString)
