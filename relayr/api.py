@@ -108,6 +108,7 @@ class Api(object):
         self.token = token
         self.is_error = is_error
         self.host = config.relayrAPI
+        self.history_host = config.relayr_history
         self.useragent = config.userAgent
         self.headers = {
             'User-Agent': self.useragent,
