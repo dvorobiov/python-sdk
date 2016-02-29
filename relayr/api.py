@@ -108,7 +108,6 @@ class Api(object):
         self.token = token
         self.is_error = is_error
         self.host = config.relayrAPI
-        self.history_host = config.relayr_history
         self.useragent = config.userAgent
         self.headers = {
             'User-Agent': self.useragent,
@@ -1134,7 +1133,7 @@ class Api(object):
 
     def delete_channel_id(self, channelID):
         """
-        Delete an existing channel by its id.
+        Delete an existing specific channel.
 
         :param channelID: the UUID of the channel
         :type channelID: string
@@ -1148,7 +1147,7 @@ class Api(object):
 
     def delete_channels_device_transport(self, deviceID=None, transport=None):
         """
-        Delete channels by criteria.
+        Delete all existing channels for the given device ID and/or transport.
 
         :param deviceID: the device UUID
         :type deviceID: string
@@ -1520,6 +1519,7 @@ class Api(object):
         url = '{0}/transmitters/{1}/devices/{2}'.format(self.host, transmitterID, deviceID)
         _, data = self.perform_request('DELETE', url, data=data, headers=self.headers)
         return data
+
     # GROUPS
 
     def create_group(self, userID, name):
@@ -1724,45 +1724,4 @@ class Api(object):
     def get_state(self, deviceID):
         url = '{0}/devices/{1}/state'.format(self.host, deviceID)
         _, data = self.perform_request('GET', url, data=None, headers=self.headers)
-        return data
-    # ..............................................................................
-    # History API
-    # ..............................................................................
-    def get_device_history(self, device_id, start, end = None, meaning = None,
-        path = None, offset = None, limit = None):
-        """
-        Make request to history api for a specific device
-        :param device_id: the device UUID
-        :type device_id: string
-        :param start: unix datetime in ms
-        :type start: long
-        :param end: unit datetime in ms
-        :type end: long
-        :param meaning: meaning filter
-        :type meaning: string
-        :param path: path filter
-        :type path: string
-        :param offset: pagination offset
-        :type offset: integer
-        :param limit: limit for returned values
-        :type limit: integer
-        :rtype: history response with pagination info
-        """
-        # https://data.relayr.io/history/devices/<device_id>?start=<..>
-        base_url = '{0}/history/devices/{1}?start={2}&'.format(self.history_host, device_id, start)
-
-        param_list = []
-        if end is not None:
-            param_list.append('end={}'.format(end))
-        if meaning is not None:
-            param_list.append('meaning={}'.format(meaning))
-        if path is not None:
-            param_list.append('path={}'.format(path))
-        if offset is not None:
-            param_list.append('offset={}'.format(offset))
-        if limit is not None:
-            param_list.append('limit={}'.format(limit))
-
-        url = base_url + '&'.join(param_list)
-        _, data = self.perform_request('GET', url, headers=self.headers)
         return data
